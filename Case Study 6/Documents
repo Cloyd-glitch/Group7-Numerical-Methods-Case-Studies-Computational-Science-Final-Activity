@@ -1,0 +1,112 @@
+case study 5: Electricity Consumption and Power Analysis
+
+Scenario
+
+A household records electric energy consumption (kWh) at different times of the day. The goal is to determine:
+• Instantaneous power usage (rate of change)
+• Total energy consumed over time
+
+Given Data
+Time(hours)	Energy(kWh)
+0	0
+2	1.5
+4	3.5
+6	6.0
+8	9.0
+10	13.0
+
+Step 1: Numerical Differentiation (Power)
+
+Use central difference:
+P(t)=(E(t+h)-E(t-h))/2h
+P(t): Instantaneous power(kW)
+E: Energy consumption(kWh)
+ h: The step size or time interval, which is 2 hours (h=2).
+2h: Therefore, the denominator for all calculations will be 4.
+STEP-BY-STEP SOLVING
+Compute the power for t = 2,4,6, and 8 hours
+For t= 2 hours		
+P(2)=(E(4)-E(0))/4  
+P(2)=E(3.5-0.0)/4  =    3.5/4  
+P (2) = 0.875kW
+
+For t = 4 hours
+P(4)=(E(6)-E(2))/4  
+P(4)=E(6.0-1.5)/4   =   4.5/4  
+P (4) = 1.125kW
+
+For t = 6 hours
+P(6)=(E(8)-E(4))/4 
+P(6)=E(9.0- 3.5)/4   =   5.5/4  
+P (6) = 1.375kW
+
+For t = 8hours
+P(8)=(E(10)-E(6))/4 
+P(8)=E(13.0-6.0)/4   =   7.0/4  
+P (8) = 1.75kW
+Summary Table Result
+Time(t)	Energy(E)	Power(P)
+0	0.0	-
+2	1.5	0.875 Kw
+4	3.5	1.125Kw
+6	6.0	1.375kw
+8	9.0	1.75kw
+10	13.0	-
+Note: Since there is no data for hour 12, the Central Difference formula physically cannot be solved for the final hour.
+STEP 2: NUMERICAL INTEGRATION
+
+Use Trapezoidal Rule to confirm:
+∫_0^10▒〖P(t)dt〗
+
+Total Energy = h/42[P(t_0 )+2P(t_1)+2P(t_2 )+⋯+P(t_(n))]
+To integrate from 0 to 10, we need power values (P) for all time points (t). Since the Central Difference method only gave us values for t = 2, 4, 6, 8, we calculate the endpoints (t=0 and t=10) using simple forward and backward differences:
+
+P(0) (Forward Difference): (E(2)-E(0))/2=  (1.5-0.0))/2=0.75kW
+P(0) (Forward Difference): (E(10)-E(8))/2=  (13.0-9.0))/2=2.0kW
+OUR FULL POWER (P) DATASET
+P(0) = 0.75
+P(2) = 0.875
+P(4) = 1.125
+P(6) = 1.375
+P(8) = 1.75
+P(10)  = 2.0
+Total Energy = 2/2 [P(0)+p(2)]+P(2)+2/2 [P(2)+P(4)]+2/2[P(4)+P(6)]+2/2[P(6)+P(8)+2/2[P(6)+P(10)  
+Energy = (0.75 + 0.875) + (0.875 + 1.125) + (1.125 + 1.375) + (1.375 + 1.75) + (1.75 + 2.0)
+Breaking down the intervals:
+0 to 2 hours:  1.625kWh
+2 to 4 hours:  2.0kWh
+4 to 6 hours:  2.5kWh
+6 to 8 hours:  3.125kWh
+8 to 10 hours:  3.75kWh
+Final Result
+Sum = 1.625 + 2.0 + 2.5 + 3.125 + 3.75 = 13.0 kWh
+Interval Table Result
+0 to 2 hours	1.625 kWh
+2 to 4 hours	2.0 kwh
+4 to 6 hours	2.5kwh
+6 to 8 hours	3.125 kwh
+8 to 10 hours	3.75kwh
+Total Energy Consumed is 13.0 kWh
+Step 3: Visualization
+Energy vs Time
+ 
+Power Vs Time
+ 
+
+STEP 4: ANALYSIS QUESTIONS
+When is electricity usage highest?
+
+The electricity usage is highest at the end of the recording period, specifically at t = 10 hours, where the power demand reaches 2.0 kW. If focusing strictly on the interior calculated points (t=2, 4, 6, 8), the usage is highest at t = 8 hours with a power draw of 1.75 kW.
+
+Is consumption steady or increasing?
+
+Consumption is increasing. Mathematically, this is evident because the power values (P) are not constant; they rise steadily from 0.75 kW to $2.0 kW. Visually, the Energy vs. Time graph would show a positive curvature (concave up), indicating that the household is using energy faster as the day progresses.
+
+Suggest ways to reduce peak usage?
+To reduce the peak usage identified between hours 8 and 10, the household should:
+	Load Shifting: Move high-energy activities (such as using a washing machine or electric oven) to the "off-peak" hours between t = 0 and t = 4, where the power demand is lowest (below 1.0 kW).
+	Staggered Use: Avoid running multiple major appliances simultaneously during the t = 8 to t = 10 window to prevent the power demand from spiking to its 2.0 kW maximum.
+	Smart Automation: Utilize timers to ensure energy-heavy devices, like water heaters or pool pumps, operate during the early morning hours (t=0).
+
+Summary
+For this case Study involves analyzing a household's electricity records to determine both the instantaneous power usage and the total energy consumed over a 10-hour period. Using a provided dataset of time and energy consumption, you are required to compute power—which is the derivative of energy—by applying the central difference numerical method at two-hour intervals. Once these power rates are calculated, you must verify the findings by using the Trapezoidal Rule for numerical integration to confirm that the results approximate the total recorded energy of 13 kWh. The completed activity must include a Python-based presentation featuring a power table, visualizations of energy and power versus time, and an analysis identifying peak usage periods and energy-saving recommendations
